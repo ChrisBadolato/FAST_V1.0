@@ -24,6 +24,8 @@ import java.io.OutputStream;
 import java.util.Set;
 import java.util.UUID;
 
+import static com.example.fast_v10.MainActivity.*;
+
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link mainMenu#newInstance} factory method to
@@ -39,6 +41,8 @@ public class mainMenu extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    BluetoothAdapter mBluetoothAdapter;
+    MainActivity main = new MainActivity();
 
     //Thread workerThread;
     byte[] readBuffer;
@@ -67,25 +71,34 @@ public class mainMenu extends Fragment {
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
+
         return fragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        //final MainActivity main = new MainActivity();
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-        writeData();
-
     }
 
-    public void writeData(){
-        String data = MainActivity.getData();
-        output.setText(data);
+        /*main.openButton.setOnClickListener(new View.OnClickListener()
+        {
+            public void onClick(View v)
+            {
+                main.outputMain.setText("Chris is Cool");
+            }
+        });
+        *\
+        //Button openButton = (Button)findViewById(R.id.bluetoothOpen);
+        //main.findBT();
+
+
     }
+*/
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
