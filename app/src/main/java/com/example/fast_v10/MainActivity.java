@@ -1,5 +1,6 @@
 package com.example.fast_v10;
 
+import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
@@ -17,8 +18,12 @@ import android.os.Handler;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
 
 import com.example.fast_v10.ui.main.SectionsPagerAdapter;
+
+import org.w3c.dom.Text;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -26,10 +31,13 @@ import java.io.OutputStream;
 import java.util.Set;
 import java.util.UUID;
 
+import static com.google.android.material.internal.ContextUtils.getActivity;
+
 public class MainActivity extends AppCompatActivity {
-    BluetoothAdapter mBluetoothAdapter;
+    static BluetoothAdapter mBluetoothAdapter;
+
     BluetoothSocket mmSocket;
-    BluetoothDevice mmDevice;
+    static BluetoothDevice mmDevice;
     OutputStream mmOutputStream;
     InputStream mmInputStream;
     Thread workerThread;
@@ -41,6 +49,8 @@ public class MainActivity extends AppCompatActivity {
     String finalList;
     String outputData;
     String[] dataList;
+    public Button openButton;
+    public TextView outputMain;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,17 +61,30 @@ public class MainActivity extends AppCompatActivity {
         viewPager.setAdapter(sectionsPagerAdapter);
         TabLayout tabs = findViewById(R.id.tabs);
         tabs.setupWithViewPager(viewPager);
-        findBT();
-        try {
-            openBT();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        beginListenForData();
+        openButton = (Button)findViewById(R.id.bluetoothOpen);
+        outputMain = (TextView)findViewById(R.id.output);
+       /* openButton.setOnClickListener(new View.OnClickListener()
+        {
+            public void onClick(View v)
+            {
+                outputText();
+                //outputMain.setText("Find BT works");
+                //try
+               // {
+                    //findBT();
+                   // outputMain.setText("Find BT works");
+                    //openBT();
+                    //outputMain.setText("BT open");
+
+               // }
+                //catch (IOException ex) { }
+            }
+        });
+        */
 
     }
 
-    void findBT()
+    public void findBT()
     {
         mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
         if(mBluetoothAdapter == null)
@@ -90,6 +113,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+
     void openBT() throws IOException
     {
         UUID uuid = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB"); //Standard SerialPortService ID
@@ -97,10 +121,6 @@ public class MainActivity extends AppCompatActivity {
         mmSocket.connect();
         mmOutputStream = mmSocket.getOutputStream();
         mmInputStream = mmSocket.getInputStream();
-
-        //beginListenForData();
-
-
     }
 
     void beginListenForData()
@@ -160,11 +180,5 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         workerThread.start();
-    }
-
-
-    public static String getData(String newOutputData){
-
-        return outputData;
     }
 }
