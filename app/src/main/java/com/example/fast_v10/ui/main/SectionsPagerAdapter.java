@@ -1,4 +1,4 @@
-package com.example.fast_v10.ui.main;
+ package com.example.fast_v10.ui.main;
 
 import android.content.Context;
 
@@ -29,18 +29,51 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
         // getItem is called to instantiate the fragment for the given page.
         // Return a PlaceholderFragment (defined as a static inner class below).
-        return PlaceholderFragment.newInstance(position + 1);
+        Fragment fragment = null;
+        switch(position){
+            case 0:
+                fragment = new mainMenu();
+                return fragment;
+            case 1:
+                fragment = new masterDevice();
+                return fragment;
+            case 2:
+                fragment = new deviceOne();
+                return fragment;
+            case 3:
+                fragment = new deviceTwo();
+                return fragment;
+            case 4:
+                fragment = new deviceThree();
+                return fragment;
+            default:
+                return null;
+        }
     }
 
     @Nullable
     @Override
     public CharSequence getPageTitle(int position) {
-        return mContext.getResources().getString(TAB_TITLES[position]);
+        switch(position){
+            case 0:
+                return "Main Menu";
+            case 1:
+                return "Master Device";
+            case 2:
+                return "Device One";
+            case 3:
+                return "Device Two";
+            case 4:
+                return "Device Three";
+            default:
+                return null;
+        }
+
     }
 
     @Override
     public int getCount() {
         // Show 2 total pages.
-        return 2;
+        return 5;
     }
 }
