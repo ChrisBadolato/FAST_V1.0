@@ -17,6 +17,7 @@ import android.os.Handler;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 
 import com.example.fast_v10.ui.main.SectionsPagerAdapter;
 
@@ -27,20 +28,22 @@ import java.util.Set;
 import java.util.UUID;
 
 public class MainActivity extends AppCompatActivity {
-    BluetoothAdapter mBluetoothAdapter;
-    BluetoothSocket mmSocket;
-    BluetoothDevice mmDevice;
-    OutputStream mmOutputStream;
-    InputStream mmInputStream;
-    Thread workerThread;
+    public BluetoothAdapter mBluetoothAdapter;
+    public BluetoothSocket mmSocket;
+    public BluetoothDevice mmDevice;
+    public OutputStream mmOutputStream;
+    public InputStream mmInputStream;
+    //TextView output = findViewById(R.id.output);;
+    public Thread workerThread;
     byte[] readBuffer;
     int readBufferPosition;
     int counter;
     int j;
-    volatile boolean stopWorker;
-    String finalList;
+    public volatile boolean stopWorker;
+    public String finalList;
     String outputData;
     String[] dataList;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,17 +54,19 @@ public class MainActivity extends AppCompatActivity {
         viewPager.setAdapter(sectionsPagerAdapter);
         TabLayout tabs = findViewById(R.id.tabs);
         tabs.setupWithViewPager(viewPager);
-        findBT();
+
+
+        /*findBT();
         try {
             openBT();
         } catch (IOException e) {
             e.printStackTrace();
         }
-        beginListenForData();
-
+       / beginListenForData();
+    */
     }
 
-    void findBT()
+    public void findBT()
     {
         mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
         if(mBluetoothAdapter == null)
@@ -87,23 +92,18 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         }
-
     }
 
-    void openBT() throws IOException
+    public void openBT() throws IOException
     {
         UUID uuid = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB"); //Standard SerialPortService ID
         mmSocket = mmDevice.createRfcommSocketToServiceRecord(uuid);
         mmSocket.connect();
         mmOutputStream = mmSocket.getOutputStream();
         mmInputStream = mmSocket.getInputStream();
-
-        //beginListenForData();
-
-
     }
 
-    void beginListenForData()
+    public void beginListenForData()
     {
         final Handler handler = new Handler();
         final byte delimiter = 10; //This is the ASCII code for a newline character
@@ -140,8 +140,7 @@ public class MainActivity extends AppCompatActivity {
                                     {
                                         public void run()
                                         {
-
-
+                                            //output.setText(data);
                                         }
                                     });
                                 }
@@ -162,9 +161,11 @@ public class MainActivity extends AppCompatActivity {
         workerThread.start();
     }
 
-
-    public static String getData(String newOutputData){
-
-        return outputData;
+    public void closeBT() throws IOException
+    {
+        stopWorker = true;
+        mmOutputStream.close();
+        mmInputStream.close();
+        mmSocket.close();
     }
 }

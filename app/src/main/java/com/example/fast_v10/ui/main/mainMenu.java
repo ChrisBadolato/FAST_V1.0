@@ -45,7 +45,13 @@ public class mainMenu extends Fragment {
     int readBufferPosition;
     int counter;
     int j;
-    TextView output;
+
+    final MainActivity newMainActivity = new MainActivity();
+
+   // TextView output = (TextView) getView().findViewById(R.id.output);
+    //Button blueToothOpened = (Button) getView().findViewById(R.id.bluetoothOpen);
+
+
 
 
     public mainMenu() {
@@ -73,25 +79,74 @@ public class mainMenu extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+      //  MainActivity newMain = new MainActivity();
+
+
+
 
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-        writeData();
+
 
     }
 
-    public void writeData(){
-        String data = MainActivity.getData();
-        output.setText(data);
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+        View v = inflater.inflate(R.layout.fragment_main_menu, container, false);
+        // final MainActivity newMainActivity = new MainActivity();
+        final TextView output = (TextView) v.findViewById(R.id.output);
+        final TextView blueToothOutput = (TextView) v.findViewById(R.id.blueToothOutput);
+        output.setText("Yeet");
+        Button blueToothOpened = (Button) v.findViewById(R.id.bluetoothOpen);
+        Button blueToothClosed = (Button) v.findViewById(R.id.bluetoothClose);
+        Button blueToothListen = (Button) v.findViewById(R.id.bluetoothListen);
 
-        return inflater.inflate(R.layout.fragment_main_menu, container, false);
+        blueToothOpened.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+
+                newMainActivity.findBT();
+                try {
+                    newMainActivity.openBT();
+                    output.setText("BlueTooth Opened");
+                } catch (IOException e) {
+
+                    e.printStackTrace();
+                    output.setText("BlueTooth Broke");
+                }
+            }
+        });
+
+        blueToothClosed.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                try {
+                    newMainActivity.closeBT();
+                    output.setText("BlueTooth Closed");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    output.setText("BlueTooth did not Close");
+                }
+
+            }
+        });
+
+        blueToothListen.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                output.setText("Listening for Data");
+
+                    newMainActivity.beginListenForData();
+                    String finalList = newMainActivity.finalList;
+                    blueToothOutput.setText(finalList);
+
+
+
+            }
+        });
+        return v;
     }
 }
+
+
