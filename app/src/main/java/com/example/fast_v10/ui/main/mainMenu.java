@@ -24,8 +24,6 @@ import java.io.OutputStream;
 import java.util.Set;
 import java.util.UUID;
 
-import static com.example.fast_v10.MainActivity.*;
-
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link mainMenu#newInstance} factory method to
@@ -41,15 +39,19 @@ public class mainMenu extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-    BluetoothAdapter mBluetoothAdapter;
-    MainActivity main = new MainActivity();
 
     //Thread workerThread;
     byte[] readBuffer;
     int readBufferPosition;
     int counter;
     int j;
-    TextView output;
+
+    final MainActivity newMainActivity = new MainActivity();
+
+   // TextView output = (TextView) getView().findViewById(R.id.output);
+    //Button blueToothOpened = (Button) getView().findViewById(R.id.bluetoothOpen);
+
+
 
 
     public mainMenu() {
@@ -71,40 +73,80 @@ public class mainMenu extends Fragment {
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
-
         return fragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //final MainActivity main = new MainActivity();
+      //  MainActivity newMain = new MainActivity();
+
+
+
+
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-    }
-
-        /*main.openButton.setOnClickListener(new View.OnClickListener()
-        {
-            public void onClick(View v)
-            {
-                main.outputMain.setText("Chris is Cool");
-            }
-        });
-        *\
-        //Button openButton = (Button)findViewById(R.id.bluetoothOpen);
-        //main.findBT();
 
 
     }
-*/
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+        View v = inflater.inflate(R.layout.fragment_main_menu, container, false);
+        // final MainActivity newMainActivity = new MainActivity();
+        final TextView output = (TextView) v.findViewById(R.id.output);
+        final TextView blueToothOutput = (TextView) v.findViewById(R.id.blueToothOutput);
+        output.setText("Yeet");
+        Button blueToothOpened = (Button) v.findViewById(R.id.bluetoothOpen);
+        Button blueToothClosed = (Button) v.findViewById(R.id.bluetoothClose);
+        Button blueToothListen = (Button) v.findViewById(R.id.bluetoothListen);
 
-        return inflater.inflate(R.layout.fragment_main_menu, container, false);
+        blueToothOpened.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+
+                newMainActivity.findBT();
+                try {
+                    newMainActivity.openBT();
+                    output.setText("BlueTooth Opened");
+                } catch (IOException e) {
+
+                    e.printStackTrace();
+                    output.setText("BlueTooth Broke");
+                }
+            }
+        });
+
+        blueToothClosed.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                try {
+                    newMainActivity.closeBT();
+                    output.setText("BlueTooth Closed");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    output.setText("BlueTooth did not Close");
+                }
+
+            }
+        });
+
+        blueToothListen.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                output.setText("Listening for Data");
+
+                    newMainActivity.beginListenForData();
+                    String finalList = newMainActivity.finalList;
+                    blueToothOutput.setText(finalList);
+
+
+
+            }
+        });
+        return v;
     }
 }
+
+

@@ -1,6 +1,5 @@
 package com.example.fast_v10;
 
-import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
@@ -18,12 +17,9 @@ import android.os.Handler;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.fast_v10.ui.main.SectionsPagerAdapter;
-
-import org.w3c.dom.Text;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -31,26 +27,23 @@ import java.io.OutputStream;
 import java.util.Set;
 import java.util.UUID;
 
-import static com.google.android.material.internal.ContextUtils.getActivity;
-
 public class MainActivity extends AppCompatActivity {
-    static BluetoothAdapter mBluetoothAdapter;
-
-    BluetoothSocket mmSocket;
-    static BluetoothDevice mmDevice;
-    OutputStream mmOutputStream;
-    InputStream mmInputStream;
-    Thread workerThread;
+    public BluetoothAdapter mBluetoothAdapter;
+    public BluetoothSocket mmSocket;
+    public BluetoothDevice mmDevice;
+    public OutputStream mmOutputStream;
+    public InputStream mmInputStream;
+    //TextView output = findViewById(R.id.output);;
+    public Thread workerThread;
     byte[] readBuffer;
     int readBufferPosition;
     int counter;
     int j;
-    volatile boolean stopWorker;
-    String finalList;
+    public volatile boolean stopWorker;
+    public String finalList;
     String outputData;
     String[] dataList;
-    public Button openButton;
-    public TextView outputMain;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,27 +54,16 @@ public class MainActivity extends AppCompatActivity {
         viewPager.setAdapter(sectionsPagerAdapter);
         TabLayout tabs = findViewById(R.id.tabs);
         tabs.setupWithViewPager(viewPager);
-        openButton = (Button)findViewById(R.id.bluetoothOpen);
-        outputMain = (TextView)findViewById(R.id.output);
-       /* openButton.setOnClickListener(new View.OnClickListener()
-        {
-            public void onClick(View v)
-            {
-                outputText();
-                //outputMain.setText("Find BT works");
-                //try
-               // {
-                    //findBT();
-                   // outputMain.setText("Find BT works");
-                    //openBT();
-                    //outputMain.setText("BT open");
 
-               // }
-                //catch (IOException ex) { }
-            }
-        });
-        */
 
+        /*findBT();
+        try {
+            openBT();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+       / beginListenForData();
+    */
     }
 
     public void findBT()
@@ -110,11 +92,9 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         }
-
     }
 
-
-    void openBT() throws IOException
+    public void openBT() throws IOException
     {
         UUID uuid = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB"); //Standard SerialPortService ID
         mmSocket = mmDevice.createRfcommSocketToServiceRecord(uuid);
@@ -123,7 +103,7 @@ public class MainActivity extends AppCompatActivity {
         mmInputStream = mmSocket.getInputStream();
     }
 
-    void beginListenForData()
+    public void beginListenForData()
     {
         final Handler handler = new Handler();
         final byte delimiter = 10; //This is the ASCII code for a newline character
@@ -160,8 +140,7 @@ public class MainActivity extends AppCompatActivity {
                                     {
                                         public void run()
                                         {
-
-
+                                            //output.setText(data);
                                         }
                                     });
                                 }
@@ -180,5 +159,13 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         workerThread.start();
+    }
+
+    public void closeBT() throws IOException
+    {
+        stopWorker = true;
+        mmOutputStream.close();
+        mmInputStream.close();
+        mmSocket.close();
     }
 }
