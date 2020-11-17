@@ -93,6 +93,8 @@ public class mainMenu extends Fragment {
     }
 
 
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -136,10 +138,21 @@ public class mainMenu extends Fragment {
         blueToothListen.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 output.setText("Listening for Data");
+                final Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        newMainActivity.beginListenForData();
 
-                    newMainActivity.beginListenForData();
-                    String finalList = newMainActivity.finalList;
-                    blueToothOutput.setText(finalList);
+                        String finalList = newMainActivity.finalList;
+
+                        blueToothOutput.setText(finalList);
+
+
+                        handler.postDelayed(this, 1000);
+                    }
+                }, 1000);  //the time is in miliseconds
+
 
 
 

@@ -41,6 +41,11 @@ public class MainActivity extends AppCompatActivity {
     int j;
     public volatile boolean stopWorker;
     public String finalList;
+    public String[] dev0Data;
+    public String[] dev1Data;
+    public String[] dev2Data;
+    public String[] dev3Data;
+
     String outputData;
     String[] dataList;
 
@@ -140,7 +145,7 @@ public class MainActivity extends AppCompatActivity {
                                     {
                                         public void run()
                                         {
-                                            //output.setText(data);
+                                            //delimitDataList();
                                         }
                                     });
                                 }
@@ -159,6 +164,27 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         workerThread.start();
+    }
+
+    void delimitDataList(){
+        dataList = finalList.split(" ", 12);
+        String id0 = "0";
+        String id1 = "1.00";
+        String id2 = "2.00";
+        String id3 = "3.00";
+        if(dataList[0].equals(id0)) {
+            dev0Data = dataList;
+
+        }
+        else if(dataList[0].equals(id1)){
+            dev1Data = dataList;
+        }
+        else if(dataList[0].equals(id2)){
+            dev2Data = dataList;
+        }
+        else if(dataList[0].equals(id3)){
+            dev3Data = dataList;
+        }
     }
 
     public void closeBT() throws IOException
