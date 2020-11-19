@@ -45,13 +45,13 @@ public class mainMenu extends Fragment {
     int readBufferPosition;
     int counter;
     int j;
+    String finalList;
+    String[] dataList;
 
     final MainActivity newMainActivity = new MainActivity();
 
-   // TextView output = (TextView) getView().findViewById(R.id.output);
+    // TextView output = (TextView) getView().findViewById(R.id.output);
     //Button blueToothOpened = (Button) getView().findViewById(R.id.bluetoothOpen);
-
-
 
 
     public mainMenu() {
@@ -79,9 +79,7 @@ public class mainMenu extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-      //  MainActivity newMain = new MainActivity();
-
-
+        //  MainActivity newMain = new MainActivity();
 
 
         if (getArguments() != null) {
@@ -91,8 +89,6 @@ public class mainMenu extends Fragment {
 
 
     }
-
-
 
 
     @Override
@@ -139,27 +135,39 @@ public class mainMenu extends Fragment {
             public void onClick(View v) {
                 output.setText("Listening for Data");
                 final Handler handler = new Handler();
+                newMainActivity.beginListenForData();
                 handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        newMainActivity.beginListenForData();
-
-                        String finalList = newMainActivity.finalList;
-
-                        blueToothOutput.setText(finalList);
-
-
+                        finalList = newMainActivity.finalList;
+                        //blueToothOutput.setText(finalList);
+                        String BlueData = "";
+                        delimitDataList();
                         handler.postDelayed(this, 1000);
                     }
                 }, 1000);  //the time is in miliseconds
-
-
 
 
             }
         });
         return v;
     }
+
+
+    void delimitDataList() {
+        dataList = finalList.split(" ", 12);
+        String id0 = "0";
+        String id1 = "1.00";
+        String id2 = "2.00";
+        String id3 = "3.00";
+        if (dataList[0].equals(id0)) {
+            DataHolder.setData0(finalList);
+        } else if (dataList[0].equals(id1)) {
+            DataHolder.setData1(finalList);
+        } else if (dataList[0].equals(id2)) {
+            DataHolder.setData2(finalList);
+        } else if (dataList[0].equals(id3)) {
+            DataHolder.setData3(finalList);
+        }
+    }
 }
-
-

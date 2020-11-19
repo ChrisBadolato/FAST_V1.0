@@ -25,8 +25,6 @@ public class deviceOne extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    final MainActivity newMainActivity = new MainActivity();
-
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
@@ -60,7 +58,6 @@ public class deviceOne extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-
     }
 
     @Override
@@ -69,22 +66,15 @@ public class deviceOne extends Fragment {
 
         View v = inflater.inflate(R.layout.fragment_device_one, container, false);
         final TextView output = (TextView) v.findViewById(R.id.textViewData);
-        // Inflate the layout for this fragment
         final Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                newMainActivity.beginListenForData();
-//
-//                String finalList = newMainActivity.finalList;
-
-//                output.setText(finalList);
-
-
+               String bluetooth = DataHolder.getData1();
+                output.setText(bluetooth);
                 handler.postDelayed(this, 1000);
             }
         }, 1000);  //the time is in miliseconds
-
         return v;
     }
 }

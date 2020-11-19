@@ -4,9 +4,11 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.example.fast_v10.R;
 
@@ -60,7 +62,17 @@ public class deviceThree extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_device_three, container, false);
+        View v = inflater.inflate(R.layout.fragment_device_one, container, false);
+        final TextView output = (TextView) v.findViewById(R.id.textViewData);
+        final Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                String bluetooth = DataHolder.getData3();
+                output.setText(bluetooth);
+                handler.postDelayed(this, 1000);
+            }
+        }, 1000);  //the time is in miliseconds
+        return v;
     }
 }
