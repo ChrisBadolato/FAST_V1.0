@@ -8,6 +8,7 @@ import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.fast_v10.R;
@@ -59,24 +60,43 @@ public class masterDevice extends Fragment {
         }
     }
 
+    int i = 0;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fr
-                View v = inflater.inflate(R.layout.fragment_device_one, container, false);
+
+        View v = inflater.inflate(R.layout.fragment_master_device, container, false);
         final TextView output = (TextView) v.findViewById(R.id.textViewData);
+        final TextView temp = (TextView) v.findViewById(R.id.tempTest0);
+
+       // temp.setText("Hello world");
+       // output.setText("Howdy ya'll");
         final Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                String bluetooth = DataHolder.getData0();
+                String bluetooth = null;
+                bluetooth = DataHolder.getData0();
+                output.setText("collecting data...");
 
+                if(bluetooth != ""){
+                    String[] dataList = bluetooth.split(" ", 12);
+                    temp.setText(dataList[1]);
+                }
+                else{
 
+                }
 
-                output.setText(bluetooth);
+               //
+                //temp.setText("i: "+  i);
+                //i++;
+
                 handler.postDelayed(this, 1000);
             }
         }, 1000);  //the time is in miliseconds
+
+
         return v;
     }
 }
