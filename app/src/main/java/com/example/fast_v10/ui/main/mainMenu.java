@@ -95,7 +95,6 @@ public class mainMenu extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_main_menu, container, false);
-        // final MainActivity newMainActivity = new MainActivity();
         final TextView output = (TextView) v.findViewById(R.id.output);
         final TextView blueToothOutput = (TextView) v.findViewById(R.id.blueToothOutput);
         output.setText("Yeet");
@@ -140,14 +139,10 @@ public class mainMenu extends Fragment {
                     @Override
                     public void run() {
                         finalList = newMainActivity.finalList;
-                        //blueToothOutput.setText(finalList);
-                        String BlueData = "";
                         delimitDataList();
                         handler.postDelayed(this, 1000);
                     }
                 }, 1000);  //the time is in miliseconds
-
-
             }
         });
         return v;

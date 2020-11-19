@@ -174,7 +174,6 @@ public class MainActivity extends AppCompatActivity {
         String id3 = "3.00";
         if(dataList[0].equals(id0)) {
             dev0Data = dataList;
-
         }
         else if(dataList[0].equals(id1)){
             dev1Data = dataList;
