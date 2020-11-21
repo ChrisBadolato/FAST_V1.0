@@ -63,16 +63,78 @@ public class deviceTwo extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_device_two, container, false);
+        final TextView temp = (TextView) v.findViewById(R.id.temp2);
+        final TextView hum = (TextView) v.findViewById(R.id.humidity2);
+        final TextView pres = (TextView) v.findViewById(R.id.pressure2);
+        final TextView lux = (TextView) v.findViewById(R.id.lux2);
+        final TextView soilTemp = (TextView) v.findViewById(R.id.soilTemp2);
+        final TextView capread = (TextView) v.findViewById(R.id.capacity2);
+        final TextView UV = (TextView) v.findViewById(R.id.UV2);
         final TextView output = (TextView) v.findViewById(R.id.textViewData);
         final Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
                 String bluetooth = DataHolder.getData2();
-                output.setText(bluetooth);
+                if(bluetooth != ""){
+                    String[] dataList = bluetooth.split(" ", 12);
+                    temp.setText("Temperature: " + dataList[1] + "\u00B0" + "C");
+                    hum.setText("Humidity: " + dataList[2] + "%");
+                    pres.setText("Pressure: " + dataList[3] + "pHa");
+                    lux.setText("Lux: " + dataList[4]);
+                    soilTemp.setText("Soil Temperature: " + dataList[5] + "\u00B0" + "C");
+                    capread.setText("Capacitive (Soil Moisture): " + dataList[6]);
+                    String UVoutput = UVIndex(dataList[7]);
+                    UV.setText("Ultra Violet (UV) Index: " + UVoutput);
+                }
+                else{
+
+                }
                 handler.postDelayed(this, 1000);
             }
         }, 1000);  //the time is in miliseconds
         return v;
+    }
+
+    String UVIndex(String UV){
+        String UVIndex = UV;
+        int UVint = Integer.parseInt(UV);
+        if(UVint < 10){
+            UVIndex = "0";
+        }
+        else if(UVint < 46){
+            UVIndex = "1";
+        }
+        else if(UVint < 65){
+            UVIndex = "2";
+        }
+        else if(UVint < 83){
+            UVIndex = "3";
+        }
+        else if(UVint < 103){
+            UVIndex = "4";
+        }
+        else if(UVint < 124){
+            UVIndex = "5";
+        }
+        else if(UVint < 142){
+            UVIndex = "6";
+        }
+        else if(UVint < 162){
+            UVIndex = "7";
+        }
+        else if(UVint < 180){
+            UVIndex = "8";
+        }
+        else if(UVint < 200){
+            UVIndex = "9";
+        }
+        else if(UVint < 221){
+            UVIndex = "10";
+        }
+        else if(UVint >= 221){
+            UVIndex = "11";
+        }
+        return UVIndex;
     }
 }

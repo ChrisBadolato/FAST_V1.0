@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.fast_v10.MainActivity;
@@ -96,11 +97,11 @@ public class mainMenu extends Fragment {
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_main_menu, container, false);
         final TextView output = (TextView) v.findViewById(R.id.output);
-        final TextView blueToothOutput = (TextView) v.findViewById(R.id.blueToothOutput);
-        output.setText("Yeet");
         Button blueToothOpened = (Button) v.findViewById(R.id.bluetoothOpen);
         Button blueToothClosed = (Button) v.findViewById(R.id.bluetoothClose);
         Button blueToothListen = (Button) v.findViewById(R.id.bluetoothListen);
+       // ImageView image = (ImageView) v.findViewById(R.id.imageView2);
+
 
         blueToothOpened.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -112,7 +113,7 @@ public class mainMenu extends Fragment {
                 } catch (IOException e) {
 
                     e.printStackTrace();
-                    output.setText("BlueTooth Broke");
+                    output.setText("BlueTooth Not Opened");
                 }
             }
         });
@@ -132,7 +133,7 @@ public class mainMenu extends Fragment {
 
         blueToothListen.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                output.setText("Listening for Data");
+                output.setText("Listening for Data..." + "\n" + "View Data on device screens");
                 final Handler handler = new Handler();
                 newMainActivity.beginListenForData();
                 handler.postDelayed(new Runnable() {

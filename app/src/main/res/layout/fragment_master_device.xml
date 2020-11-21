@@ -13,8 +13,8 @@
         <TextView
             android:id="@+id/textViewData"
             android:layout_width="218dp"
-            android:layout_height="60dp"
-            android:text="TextView"
+            android:layout_height="40dp"
+            android:text="Collecting Data..."
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.497"
             app:layout_constraintStart_toStartOf="parent"
@@ -24,11 +24,98 @@
             android:id="@+id/tempTest0"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Temp Test"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginTop="10dp"
+            android:text="Temperature"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textViewData" />
+
+        <TextView
+            android:id="@+id/humidity0"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Humidity"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tempTest0" />
+
+        <TextView
+            android:id="@+id/pressure0"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Pressure"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/humidity0" />
+
+        <TextView
+            android:id="@+id/lux0"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Lux:"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/pressure0" />
+
+        <TextView
+            android:id="@+id/soilTemp0"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Soil Temperature:"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/lux0" />
+
+        <TextView
+            android:id="@+id/capacity0"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Capacity"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/soilTemp0" />
+
+        <TextView
+            android:id="@+id/UV0"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="UV Index"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/capacity0" />
+
+        <TextView
+            android:id="@+id/windSpeed0"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Wind Speed (Mps)"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/UV0" />
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="275dp"
+            android:layout_height="179dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginEnd="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginBottom="15dp"
+            android:src="@drawable/fasticon"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.495"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/windSpeed0"
+            app:layout_constraintVertical_bias="0.761" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

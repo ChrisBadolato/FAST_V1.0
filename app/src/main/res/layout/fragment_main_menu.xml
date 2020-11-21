@@ -22,10 +22,11 @@
             android:id="@+id/output"
             android:layout_width="281dp"
             android:layout_height="98dp"
-            android:text="output"
+            android:layout_marginBottom="5dp"
+            android:text="Bluetooth Status"
+            app:layout_constraintBottom_toTopOf="@+id/bluetoothClose"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintStart_toStartOf="parent" />
 
         <Button
             android:id="@+id/bluetoothClose"
@@ -44,15 +45,16 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 
-        <TextView
-            android:id="@+id/blueToothOutput"
-            android:layout_width="377dp"
-            android:layout_height="130dp"
-            android:text="TextView"
-            app:layout_constraintBottom_toTopOf="@+id/bluetoothClose"
+        <ImageView
+            android:id="@+id/imageView5"
+            android:layout_width="385dp"
+            android:layout_height="525dp"
+            android:src="@drawable/fasticon"
+            app:layout_constraintBottom_toTopOf="@+id/output"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </FrameLayout>
